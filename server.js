@@ -1,17 +1,25 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
-app.get("/", function(req, res) {
-  res.send("Yay Node Girls!");
-});
-
-
+app.use(bodyParser.json());
 
 const albumsData = [
   {
-    albumId: "10",
+    albumId: "9",
     artistName: "Beyoncé",
     collectionName: "Lemonade",
+    artworkUrl100:
+      "http://is1.mzstatic.com/image/thumb/Music20/v4/23/c1/9e/23c19e53-783f-ae47-7212-03cc9998bd84/source/100x100bb.jpg",
+    releaseDate: "2016-04-25T07:00:00Z",
+    primaryGenreName: "Pop",
+    url:
+      "https://www.youtube.com/embed/PeonBmeFR8o?rel=0&amp;controls=0&amp;showinfo=0"
+  },
+  {
+    albumId: "10",
+    artistName: "Beyoncé",
+    collectionName: "Lemonade2",
     artworkUrl100:
       "http://is1.mzstatic.com/image/thumb/Music20/v4/23/c1/9e/23c19e53-783f-ae47-7212-03cc9998bd84/source/100x100bb.jpg",
     releaseDate: "2016-04-25T07:00:00Z",
@@ -32,13 +40,37 @@ const albumsData = [
   }
 ];
 
+app.get("/", function(req, res) {
+  res.send("Hello World!");
+});
+
+app.get("/albums/:albumId", function(req, res) {
+  //console.log(req.params.albumId);
+  const album = albumsData.find(function(album) {
+    return album.albumId === req.params.albumId;
+  });
+
+  res.send(album);
+});
+
 app.get("/albums", function(req, res) {
   res.send(albumsData);
 });
 
-const bodyParser = require("body-parser");
+app.post("/albums", function(req, res) {
+  albumsData.push(req.body);
+  console.log(albumsData);
+  res.send(200);
+});
 
-app.use(bodyParser.json()); // before our routes definition
+app.delete("/albums/:albumId", function(req, res) {
+  const albumId = req.params.albumsData;
+  const albumIndex = albumsData.findIndex(function(album) {
+    return album.albumId === albumId;
+  });
+  albumsData.splice(albumIndex, 1);
+  res.send();
+});
 
 app.listen(3000, function() {
   console.log("Server is listening on port 3000. Ready to accept requests!");
