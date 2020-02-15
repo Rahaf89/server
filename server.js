@@ -75,12 +75,14 @@ app.delete("/albums/:albumId", function(req, res) {
 
 app.put("/albums/:albumId", function(req, res) {
   const albumId = req.params.albumId;
-  const albumIndex = albumsData.findIndex(function(album) {});
+  const albumIndex = albumsData.findIndex(function(album) {
+    return album.albumId === albumId;
+  });
 
-  const newInformation = req.body;
+  const newAlbum = req.body;
 
-  albumsData[albumIndex] = newInformation;
-  res.send(newInformation);
+  albumsData[albumIndex] = newAlbum;
+  res.send(newAlbum);
 });
 
 app.listen(3000, function() {
