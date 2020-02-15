@@ -64,10 +64,11 @@ app.post("/albums", function(req, res) {
 });
 
 app.delete("/albums/:albumId", function(req, res) {
-  const albumId = req.params.albumsData;
+  const albumId = req.params.albumId;
   const albumIndex = albumsData.findIndex(function(album) {
     return album.albumId === albumId;
   });
+
   albumsData.splice(albumIndex, 1);
   res.send();
 });
