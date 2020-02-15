@@ -73,6 +73,16 @@ app.delete("/albums/:albumId", function(req, res) {
   res.send();
 });
 
+app.put("/albums/:albumId", function(req, res) {
+  const albumId = req.params.albumId;
+  const albumIndex = albumsData.findIndex(function(album) {});
+
+  const newInformation = req.body;
+
+  albumsData[albumIndex] = newInformation;
+  res.send(newInformation);
+});
+
 app.listen(3000, function() {
   console.log("Server is listening on port 3000. Ready to accept requests!");
 });
