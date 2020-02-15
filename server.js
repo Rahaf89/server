@@ -12,7 +12,7 @@ const albumsData = [
     artworkUrl100:
       "http://is1.mzstatic.com/image/thumb/Music20/v4/23/c1/9e/23c19e53-783f-ae47-7212-03cc9998bd84/source/100x100bb.jpg",
     releaseDate: "2016-04-25T07:00:00Z",
-    primaryGenreName: "Pop",
+    primaryGenreName: "Rock",
     url:
       "https://www.youtube.com/embed/PeonBmeFR8o?rel=0&amp;controls=0&amp;showinfo=0"
   },
@@ -54,7 +54,15 @@ app.get("/albums/:albumId", function(req, res) {
 });
 
 app.get("/albums", function(req, res) {
-  res.send(albumsData);
+  console.log(req.query);
+
+  if (req.query.genre) {
+    //filter by genre
+    // filter works like find
+    // except that it will return an array instead of one element
+  } else {
+    res.send(albumsData);
+  }
 });
 
 app.post("/albums", function(req, res) {
