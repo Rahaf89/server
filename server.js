@@ -54,12 +54,14 @@ app.get("/albums/:albumId", function(req, res) {
 });
 
 app.get("/albums", function(req, res) {
-  console.log(req.query);
-
   if (req.query.genre) {
-    //filter by genre
-    // filter works like find
-    // except that it will return an array instead of one element
+    const albums = albumsData.filter(function(album) {
+      return (
+        album.primaryGenreName.toLowerCase() === req.query.genre.toLowerCase()
+      );
+    });
+    //console.log(req.query.genre);
+    res.send(albums);
   } else {
     res.send(albumsData);
   }
